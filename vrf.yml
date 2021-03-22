@@ -1,0 +1,11 @@
+---
+
+- name: CISCO IOS-XR CREATE VRF
+  hosts: IOS_XR
+  gather_facts: false
+
+  roles: 
+    - vrf 
+
+
+

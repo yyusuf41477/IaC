@@ -1,0 +1,22 @@
+---
+
+- name: HOSTNAME CONFIG GET
+  hosts: MTN_HOSTNAME
+  gather_facts: false
+
+  tasks:
+    - name: run show hostname
+      ios_command:
+        commands: show config | i hostname
+        
+        register: print_output
+
+    -   debug: var=print_output.stdout_lines
+
+    - name: save output to a file
+      lineinfile: 
+        path: /home/admin/mtnn_hostnames.txt
+        line: "{{ inventory_hostname }}...{{ print_output.stdout[0] }}"
+        insertbefore: BOF
+        creaate: yes
+#      copy: content="{{ print_output.stdout[0] }}" dest="/home/admin/{{ inventory_hostname }}.txt"

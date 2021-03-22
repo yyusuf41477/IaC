@@ -1,0 +1,6 @@
+---
+# tasks file for vrf
+- name: Create a VRF ON THE PE
+  iosxr_config:
+    src: "templates/vrf.j2"
+

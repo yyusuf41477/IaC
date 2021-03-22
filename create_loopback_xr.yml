@@ -1,0 +1,15 @@
+---
+
+- name: CISCO IOS-XR CREATE LOOPBACK
+  hosts: IOS_XR
+  gather_facts: false
+
+  tasks:
+    - name: 
+      iosxr_config:
+         lines:
+           - ip address 10.10.10.10/32
+           - description "TEST_ANSIBLE_LO10"
+         parents: interface loopback 10
+
+

@@ -1,0 +1,6 @@
+---
+- name: MTNNN DEVICES ADD SYSLOG SERVERS NXOS,IOSXR,IOS,WLC
+  hosts: all
+  gather_facts: false
+  roles:
+    - logging

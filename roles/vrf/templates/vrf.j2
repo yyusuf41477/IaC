@@ -1,0 +1,14 @@
+{% if customers is defined %}
+{% for customervrf, value in customers.items() %}
+vrf {{ customervrf }}
+address-family ipv4 unicast
+{% if 'rt' in value %}
+import route-target
+{{ value.rt }}
+{% endif %}
+{% if 'rt' in value %}
+export route-target
+{{ value.rt }}
+{% endif %}
+{% endfor %}
+{% endif %}

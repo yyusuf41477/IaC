@@ -1,0 +1,8 @@
+---
+# tasks file for interface
+
+- name: CREATE INTERFACE CONFIGS FOR VRF
+  iosxr_config:
+     src: "templates/interfaces.j2"
+
+

@@ -1,0 +1,41 @@
+---
+# tasks file for backup
+- name: CREATE BACKUP PATH FOR CONFIG FILES
+  file:
+    path: "/home/admin/ANSIBLE/BACKUPS/{{ item }}"
+    state: directory
+  loop:
+    - IOSXR
+    - NXOS
+    - IOS
+    - WLC
+  run_once: true
+- name: IOSXR MTNN DEVICES BACKUP RUNNING CONFIG
+  iosxr_config:
+    backup: yes
+    backup_options:
+      filename: "{{ inventory_hostname }}.cfg"
+      dir_path: /home/admin/ANSIBLE/BACKUPS/IOSXR
+  when: ansible_network_os == 'iosxr' 
+- name: MTNN NEXUS DEVICES BACKUP RUNNING CONFIG
+  nxos_config:
+    backup: yes
+    backup_options:
+      filename: "{{ inventory_hostname }}.cfg"
+      dir_path: /home/admin/ANSIBLE/BACKUPS/NXOS
+  when: ansible_network_os == 'nxos'  
+- name: MTNN IOS DEVICES BACKUP RUNNING CONFIG
+  ios_config:
+    backup: yes
+    backup_options:
+      filename: "{{ inventory_hostname }}.cfg"
+      dir_path: /home/admin/ANSIBLE/BACKUPS/IOS
+  when: ansible_network_os == 'ios'
+- name: configurable backup path
+  aireos_config:
+    backup: yes
+#    lines: sysname testDevice
+    backup_options:
+      filename: "{{ inventory_hostname }}.cfg"
+      dir_path: /home/admin/ANSIBLE/BACKUPS/WLC
+  when: ansible_network_os == 'aireos'

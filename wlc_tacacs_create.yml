@@ -1,0 +1,17 @@
+---
+
+- name: CISCO WLC CREATE TACACS
+  hosts: MTNN_WLC
+  gather_facts: false
+
+  tasks:
+    - name: CREATE TACACS AUTH,ACCT,ATTRIB
+      aireos_config:
+         lines:
+           - aaa auth mgmt tacacs local
+           - tacacs acct add 1 192.168.15.67 49 ascii o@k0k
+           - tacacs athr add 1 192.168.15.67 49 ascii o@k0k
+           - tacacs auth add 1 192.168.15.67 49 ascii o@k0k
+           - tacacs acct add 2 192.168.15.3 49 ascii o@k0k
+           - tacacs athr add 2 192.168.15.3 49 ascii o@k0k
+           - tacacs auth add 2 192.168.15.3 49 ascii o@k0k

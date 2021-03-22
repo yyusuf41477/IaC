@@ -1,0 +1,35 @@
+---
+
+- name: CISCO WLC CREATE SNMP
+  hosts: MTNN_WLC
+  gather_facts: false
+
+  tasks:
+    - name: CREATE SNMP V3 INSTANCE
+      aireos_config:
+         lines:
+           - snmp version v3 enable
+           - snmp syslocation MTNN-YellowAnnexxe
+           - snmp syscontact 08032008980 
+    - name: DELETE DEFAULT SNMP USER AND CREATE NEW(MTNMPLS)
+      aireos_config:
+         lines:
+           - snmp v3user delete default
+           - snmp v3user create mtnmpls rw hmacsha aescfb128 suppress@123 suppress@123
+    - name: CREATE SNMP COMMUNITY AND TRAPS RECEIVER
+      aireos_config:
+         lines:
+           - snmp community create mtn-rw
+           - snmp community create mtn-rw1
+           - snmp community mode enable mtn-rw
+           - snmp community mode enable mtn-rw1
+           - snmp community ipaddr 192.168.15.0 255.255.255.192 mtn-rw1
+           - snmp community ipaddr 192.168.17.144 255.255.255.240 mtn-rw
+           - snmp community accessmode rw mtn-rw
+           - snmp community accessmode rw mtn-rw1
+           - snmp trapreceiver create NETBS 192.168.15.44
+           - snmp trapreceiver create NETB2 192.168.17.147
+           - snmp trapreceiver create NETB3 192.168.17.151
+           - snmp trapreceiver mode enable NETBS
+           - snmp trapreceiver mode enable NETB2
+           - snmp trapreceiver mode enable NETB3

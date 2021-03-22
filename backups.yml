@@ -1,0 +1,6 @@
+---
+- name: MTNN DEVICES CONFIG BACKUPS
+  hosts: all
+  gather_facts: False
+  roles:
+    - backup
